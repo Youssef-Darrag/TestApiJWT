@@ -1,6 +1,10 @@
+using TestApiJWT.Helpers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
