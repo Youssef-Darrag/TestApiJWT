@@ -36,5 +36,16 @@ namespace TestApiJWT.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost("addrole")]
+        public async Task<IActionResult> AddRoleAsync([FromBody] AddRoleDto dto)
+        {
+            var result = await _authService.AddRoleAsync(dto);
+
+            if (!string.IsNullOrEmpty(result))
+                return BadRequest(result);
+
+            return Ok(dto);
+        }
     }
 }
