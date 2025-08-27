@@ -18,10 +18,18 @@ namespace TestApiJWT.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterDto dto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var result = await _authService.RegisterAsync(dto);
+
+            if (!result.IsAuthenticated)
+                return BadRequest(result.Message);
+
+            return Ok(result);
+        }
+
+        [HttpPost("token")]
+        public async Task<IActionResult> GetTokenAsync([FromBody] TokenRequestDto dto)
+        {
+            var result = await _authService.GetTokenAsync(dto);
 
             if (!result.IsAuthenticated)
                 return BadRequest(result.Message);
